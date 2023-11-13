@@ -4,14 +4,14 @@ When working with Azure Policies and trying to reach a compliant state it is alw
 
 An example of analytics can be found in the [Azure Compliance Workbooks repo](https://github.com/Eurofiber-CloudInfra/azure-compliance-workbooks/) which contains an Azure workbook that visualizes Regulatory Compliance information audited by Azure Regulatory Compliance Policy Initiatives.
 
-This repo contains a sample Bicep deployment of an Event Grid System Topic and a basic Logic App that captures all policy state events and stores it in a Log Analytics workspace.
+This repo contains a sample Bicep deployment of an Event Grid System Topic and a basic Logic App that captures all policy state events and stores it in a Log Analytics workspace (table name PolicyInsights_CL).
 
 ![overview](media/policyinsights.drawio.png)
 
 
 # Deployment
 
-First deploy the Logic App which would probably life in your Management subscription. Next deploy the Event Grid Topic Subscription to every subscription from which you want to collect policy events.
+First deploy the Logic App which would probably live in your Management subscription. Next deploy the Event Grid Topic Subscription to every subscription from which you want to collect policy events.
 
 In this example it is assumed that you already have a Log Analytics workspace deployed.
 
@@ -55,3 +55,6 @@ az deployment group create  --resource-group $resource_group_name \
                                 event_grid_system_topic_name=$event_grid_system_topic_name \
                                 logic_app_resource_id=$logic_app_resource_id 
 ```
+
+There will be some delay before the first state change events will be processed and the PolicyInsights_CL table becomes available in the log analytics workspace. You can watch Event Grid System Topic resource for triggered events and the Run History of the Logic App to see if any events are processed. You can use the azure CLI to [trigger a policy scan](https://learn.microsoft.com/en-us/cli/azure/policy/state?view=azure-cli-latest#az-policy-state-trigger-scan).
+
