@@ -56,5 +56,5 @@ az deployment group create  --resource-group $resource_group_name \
                                 logic_app_resource_id=$logic_app_resource_id 
 ```
 
-There will be some delay before the first state change events will be processed and the PolicyInsights_CL table becomes available in the log analytics workspace. You can watch Event Grid System Topic resource for triggered events and the Run History of the Logic App to see if any events are processed. You can use the azure CLI to [trigger a policy scan](https://learn.microsoft.com/en-us/cli/azure/policy/state?view=azure-cli-latest#az-policy-state-trigger-scan).
+There will be some delay before the first state change events will be processed and the PolicyInsights_CL table becomes available in the log analytics workspace. You can watch Event Grid System Topic resource for triggered events and the Run History of the Logic App to see if any events are processed. You can use the azure CLI to [trigger a policy scan](https://learn.microsoft.com/en-us/cli/azure/policy/state?view=azure-cli-latest#az-policy-state-trigger-scan). In my experience a quick way to test the setup is to deploy an new resource that is NonCompliant with your deployed policies.
 
